@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSMOS — A Journey Through the Stars</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #00010a;
+    --deep: #030818;
+    --nebula-blue: #0a1628;
+    --star-white: #f0f4ff;
+    --gold: #ffd166;
+    --aurora: #06d6a0;
+    --rose: #ef476f;
+    --ice: #a8dadc;
+    --dim: rgba(240,244,255,0.4);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--star-white);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* ── STAR FIELD ── */
+  #starfield {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--d, 3s) ease-in-out infinite var(--delay, 0s);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: var(--min-op, 0.2); transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.4); }
+  }
+
+  /* ── METEORS ── */
+  .meteor {
+    position: absolute;
+    width: var(--len, 120px);
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), white);
+    border-radius: 999px;
+    animation: meteor-fall var(--dur, 1.2s) ease-in var(--delay, 0s) infinite;
+    opacity: 0;
+    transform-origin: right center;
+    filter: drop-shadow(0 0 4px white);
+  }
+
+  @keyframes meteor-fall {
+    0% { opacity: 0; transform: translateX(0) translateY(0) rotate(-35deg); }
+    10% { opacity: 1; }
+    70% { opacity: 0.8; }
+    100% { opacity: 0; transform: translateX(-600px) translateY(300px) rotate(-35deg); }
+  }
+
+  /* ── LAYOUT ── */
+  section { position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .hero-label {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 200;
+    letter-spacing: 0.6em;
+    font-size: 0.75rem;
+    color: var(--aurora);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(3.5rem, 12vw, 9rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--star-white) 30%, var(--ice) 60%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeUp 1.2s 0.2s ease both;
+    filter: drop-shadow(0 0 40px rgba(168,218,220,0.3));
+  }
+
+  .hero-sub {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    color: var(--dim);
+    animation: fadeUp 1.2s 0.4s ease both;
+    max-width: 480px;
+    line-height: 1.8;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: fadeUp 1.5s 1s ease both;
+  }
+
+  .scroll-hint span {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--aurora), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { transform: scaleY(1); opacity: 1; }
+    50% { transform: scaleY(0.4); opacity: 0.4; }
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(168,218,220,0.3), transparent);
+    margin: 0;
+  }
+
+  /* ── SECTION SHARED ── */
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 7rem 2rem;
+  }
+
+  .section-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--aurora);
+    border: 1px solid rgba(6,214,160,0.3);
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--star-white);
+  }
+
+  p.lead {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--dim);
+    max-width: 600px;
+  }
+
+  /* ── METEOR SHOWER SECTION ── */
+  #meteors .section-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .meteor-visual {
+    position: relative;
+    height: 340px;
+    overflow: hidden;
+    border: 1px solid rgba(168,218,220,0.1);
+    border-radius: 4px;
+    background: radial-gradient(ellipse at 70% 30%, rgba(10,22,40,0.9), var(--void));
+  }
+
+  .meteor-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(6,214,160,0.06) 0%, transparent 60%),
+      radial-gradient(circle at 20% 80%, rgba(168,218,220,0.04) 0%, transparent 50%);
+  }
+
+  /* static demo meteors inside box */
+  .demo-meteor {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, white);
+    animation: demo-fall var(--d) ease-in infinite var(--del);
+    opacity: 0;
+    border-radius: 999px;
+  }
+
+  @keyframes demo-fall {
+    0% { opacity: 0; transform: translate(0,0) rotate(-30deg); }
+    15% { opacity: 1; }
+    80% { opacity: 0.6; }
+    100% { opacity: 0; transform: translate(-300px, 150px) rotate(-30deg); }
+  }
+
+  /* ── CONSTELLATIONS SECTION ── */
+  #constellations {
+    background: linear-gradient(180deg, transparent 0%, rgba(6,8,24,0.7) 50%, transparent 100%);
+  }
+
+  .constellation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .constellation-card {
+    border: 1px solid rgba(168,218,220,0.12);
+    padding: 2rem;
+    border-radius: 4px;
+    background: rgba(10,22,40,0.4);
+    backdrop-filter: blur(4px);
+    transition: border-color 0.4s, background 0.4s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .constellation-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(6,214,160,0.06), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .constellation-card:hover {
+    border-color: rgba(6,214,160,0.4);
+    background: rgba(10,22,40,0.7);
+    transform: translateY(-4px);
+  }
+
+  .constellation-card:hover::before { opacity: 1; }
+
+  .card-svg {
+    width: 100%;
+    height: 140px;
+    margin-bottom: 1.2rem;
+  }
+
+  .card-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: var(--star-white);
+    margin-bottom: 0.4rem;
+  }
+
+  .card-latin {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--aurora);
+    margin-bottom: 0.8rem;
+  }
+
+  .card-desc {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--dim);
+  }
+
+  /* ── SVG CONSTELLATION STARS ── */
+  .c-star {
+    fill: var(--star-white);
+    filter: drop-shadow(0 0 3px white);
+    animation: twinkle 3s ease-in-out infinite;
+  }
+
+  .c-line {
+    stroke: rgba(168,218,220,0.3);
+    stroke-width: 0.8;
+    fill: none;
+  }
+
+  /* ── STARS SECTION ── */
+  .stars-content {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .star-types {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+
+  .star-type {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1rem 1.2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    background: rgba(10,22,40,0.3);
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .star-type:hover {
+    border-color: rgba(255,209,102,0.3);
+    background: rgba(10,22,40,0.6);
+  }
+
+  .star-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 12px var(--c, white), 0 0 24px var(--c, white);
+  }
+
+  .star-type-info { flex: 1; }
+  .star-type-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    color: var(--star-white);
+    margin-bottom: 0.2rem;
+  }
+  .star-type-desc {
+    font-size: 0.75rem;
+    color: var(--dim);
+    line-height: 1.5;
+  }
+
+  .star-temp {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .sky-orb {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%,
+      rgba(168,218,220,0.15),
+      rgba(10,22,40,0.5) 50%,
+      var(--void) 70%
+    );
+    border: 1px solid rgba(168,218,220,0.1);
+    position: relative;
+    overflow: hidden;
+    max-width: 320px;
+    margin: auto;
+  }
+
+  .orb-glow {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    top: 15%;
+    left: 15%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,209,102,0.08), transparent 70%);
+    animation: orbPulse 4s ease-in-out infinite;
+  }
+
+  @keyframes orbPulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid rgba(168,218,220,0.08);
+  }
+
+  .footer-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: var(--ice);
+    letter-spacing: 0.3em;
+    margin-bottom: 0.8rem;
+  }
+
+  footer p {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--dim);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    #meteors .section-inner,
+    .stars-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .meteor-visual { height: 220px; }
+    .sky-orb { max-width: 220px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STAR FIELD -->
+<div id="starfield"></div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-label">The universe awaits</div>
+  <h1>COSMOS</h1>
+  <p class="hero-sub">A meditation on stars, meteor showers, and the ancient patterns humanity drew across the night sky.</p>
+  <div class="scroll-hint">
+    <span>Explore</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- METEOR SHOWERS -->
+<section id="meteors">
+  <div class="section-inner">
+    <div>
+      <span class="section-tag">Meteor Showers</span>
+      <h2>Trails of<br>Cosmic Dust</h2>
+      <p class="lead">When Earth passes through the debris trails left by comets, tiny grains of rock and ice enter our atmosphere at 70 km/s, burning up in brilliant streaks of light we call shooting stars.</p>
+      <div class="star-types" style="margin-top:2.5rem;">
+        <div class="star-type">
+          <div class="star-dot" style="--c:#a8dadc; background:var(--ice);"></div>
+          <div class="star-type-info">
+            <div class="star-type-name">Perseids</div>
+            <div class="star-type-desc">Peaks mid-August · Up to 100 meteors/hr · Parent: Comet Swift-Tuttle</div>
+          </div>
+        </div>
+        <div class="star-type">
+          <div class="star-dot" style="--c:#ffd166; background:var(--gold);"></div>
+          <div class="star-type-info">
+            <div class="star-type-name">Leonids</div>
+            <div class="star-type-desc">Peaks mid-November · Up to 15 meteors/hr · Parent: Comet Tempel-Tuttle</div>
+          </div>
+        </div>
+        <div class="star-type">
+          <div class="star-dot" style="--c:#ef476f; background:var(--rose);"></div>
+          <div class="star-type-info">
+            <div class="star-type-name">Geminids</div>
+            <div class="star-type-desc">Peaks mid-December · Up to 120 meteors/hr · Parent: Asteroid 3200 Phaethon</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="meteor-visual">
+      <!-- demo meteors animated inside the card -->
+      <div class="demo-meteor" style="width:180px; top:15%; right:5%; --d:2.1s; --del:0s;"></div>
+      <div class="demo-meteor" style="width:120px; top:30%; right:10%; --d:2.8s; --del:0.7s;"></div>
+      <div class="demo-meteor" style="width:90px; top:50%; right:20%; --d:1.8s; --del:1.4s;"></div>
+      <div class="demo-meteor" style="width:200px; top:10%; right:15%; --d:3.2s; --del:2s;"></div>
+      <div class="demo-meteor" style="width:140px; top:65%; right:5%; --d:2.4s; --del:0.3s;"></div>
+      <div class="demo-meteor" style="width:110px; top:80%; right:25%; --d:1.9s; --del:1.7s;"></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONSTELLATIONS -->
+<section id="constellations">
+  <div class="section-inner">
+    <span class="section-tag">Constellations</span>
+    <h2>Ancient Maps<br>of the Sky</h2>
+    <p class="lead">For millennia, civilizations connected the dots between distant suns to chart the seasons, tell stories, and navigate the seas. 88 official constellations still guide us today.</p>
+
+    <div class="constellation-grid">
+
+      <!-- ORION -->
+      <div class="constellation-card">
+        <svg class="card-svg" viewBox="0 0 200 140">
+          <!-- Lines -->
+          <polyline class="c-line" points="70,20 100,38 130,20"/>
+          <line class="c-line" x1="100" y1="38" x2="100" y2="70"/>
+          <line class="c-line" x1="100" y1="70" x2="60" y2="55"/>
+          <line class="c-line" x1="100" y1="70" x2="140" y2="55"/>
+          <line class="c-line" x1="100" y1="70" x2="100" y2="95"/>
+          <line class="c-line" x1="100" y1="95" x2="70" y2="120"/>
+          <line class="c-line" x1="100" y1="95" x2="130" y2="120"/>
+          <!-- Stars -->
+          <circle class="c-star" cx="70" cy="20" r="3.5" style="animation-delay:0s"/>
+          <circle class="c-star" cx="100" cy="38" r="2.5" style="animation-delay:0.3s"/>
+          <circle class="c-star" cx="130" cy="20" r="3" style="animation-delay:0.6s"/>
+          <circle class="c-star" cx="60" cy="55" r="4.5" fill="#ffd166" style="animation-delay:0.2s; filter:drop-shadow(0 0 6px #ffd166)"/>
+          <circle class="c-star" cx="140" cy="55" r="3" style="animation-delay:0.5s"/>
+          <circle class="c-star" cx="100" cy="70" r="2" style="animation-delay:0.8s"/>
+          <circle class="c-star" cx="100" cy="95" r="2" style="animation-delay:1s"/>
+          <circle class="c-star" cx="70" cy="120" r="4" fill="#a8dadc" style="animation-delay:0.4s; filter:drop-shadow(0 0 5px #a8dadc)"/>
+          <circle class="c-star" cx="130" cy="120" r="3.5" style="animation-delay:0.7s"/>
+        </svg>
+        <div class="card-name">Orion</div>
+        <div class="card-latin">The Hunter</div>
+        <div class="card-desc">One of the most recognizable constellations, home to the brilliant supergiants Betelgeuse and Rigel.</div>
+      </div>
+
+      <!-- URSA MAJOR -->
+      <div class="constellation-card">
+        <svg class="card-svg" viewBox="0 0 200 140">
+          <polyline class="c-line" points="30,40 60,35 90,50 120,45 145,30 165,50 145,80"/>
+          <line class="c-line" x1="90" y1="50" x2="80" y2="100"/>
+          <line class="c-line" x1="80" y1="100" x2="110" y2="110"/>
+          <line class="c-line" x1="110" y1="110" x2="120" y2="45"/>
+          <circle class="c-star" cx="30" cy="40" r="3" style="animation-delay:0s"/>
+          <circle class="c-star" cx="60" cy="35" r="3.5" style="animation-delay:0.4s"/>
+          <circle class="c-star" cx="90" cy="50" r="3" style="animation-delay:0.2s"/>
+          <circle class="c-star" cx="120" cy="45" r="3" style="animation-delay:0.7s"/>
+          <circle class="c-star" cx="145" cy="30" r="4" fill="#a8dadc" style="animation-delay:0.1s; filter:drop-shadow(0 0 5px #a8dadc)"/>
+          <circle class="c-star" cx="165" cy="50" r="3.5" style="animation-delay:0.5s"/>
+          <circle class="c-star" cx="145" cy="80" r="3" style="animation-delay:0.9s"/>
+          <circle class="c-star" cx="80" cy="100" r="2.5" style="animation-delay:0.3s"/>
+          <circle class="c-star" cx="110" cy="110" r="2.5" style="animation-delay:0.6s"/>
+        </svg>
+        <div class="card-name">Ursa Major</div>
+        <div class="card-latin">The Great Bear</div>
+        <div class="card-desc">Contains the famous Big Dipper asterism, used for thousands of years to locate Polaris, the North Star.</div>
+      </div>
+
+      <!-- SCORPIUS -->
+      <div class="constellation-card">
+        <svg class="card-svg" viewBox="0 0 200 140">
+          <polyline class="c-line" points="100,15 100,40 85,55 90,75 100,90 120,105 140,120 145,110 135,100"/>
+          <circle class="c-star" cx="100" cy="15" r="2.5" style="animation-delay:0.3s"/>
+          <circle class="c-star" cx="100" cy="40" r="5" fill="#ef476f" style="animation-delay:0s; filter:drop-shadow(0 0 8px #ef476f)"/>
+          <circle class="c-star" cx="85" cy="55" r="2.5" style="animation-delay:0.5s"/>
+          <circle class="c-star" cx="90" cy="75" r="2" style="animation-delay:0.8s"/>
+          <circle class="c-star" cx="100" cy="90" r="2.5" style="animation-delay:0.2s"/>
+          <circle class="c-star" cx="120" cy="105" r="2" style="animation-delay:0.6s"/>
+          <circle class="c-star" cx="140" cy="120" r="3" style="animation-delay:1s"/>
+          <circle class="c-star" cx="145" cy="110" r="3.5" style="animation-delay:0.4s"/>
+          <circle class="c-star" cx="135" cy="100" r="2.5" style="animation-delay:0.7s"/>
+        </svg>
+        <div class="card-name">Scorpius</div>
+        <div class="card-latin">The Scorpion</div>
+        <div class="card-desc">The red supergiant Antares marks the scorpion's heart, rivaling Mars in its fiery crimson brilliance.</div>
+      </div>
+
+      <!-- CASSIOPEIA -->
+      <div class="constellation-card">
+        <svg class="card-svg" viewBox="0 0 200 140">
+          <polyline class="c-line" points="30,100 60,40 100,80 140,30 170,70"/>
+          <circle class="c-star" cx="30" cy="100" r="3" style="animation-delay:0.2s"/>
+          <circle class="c-star" cx="60" cy="40" r="3.5" style="animation-delay:0s"/>
+          <circle class="c-star" cx="100" cy="80" r="4" fill="#a8dadc" style="animation-delay:0.5s; filter:drop-shadow(0 0 6px #a8dadc)"/>
+          <circle class="c-star" cx="140" cy="30" r="3.5" style="animation-delay:0.3s"/>
+          <circle class="c-star" cx="170" cy="70" r="3" style="animation-delay:0.7s"/>
+        </svg>
+        <div class="card-name">Cassiopeia</div>
+        <div class="card-latin">The Queen</div>
+        <div class="card-desc">The unmistakable W-shape of Cassiopeia is visible year-round in the northern hemisphere, tracing the queen's throne.</div>
+      </div>
+
+      <!-- CYGNUS -->
+      <div class="constellation-card">
+        <svg class="card-svg" viewBox="0 0 200 140">
+          <line class="c-line" x1="100" y1="20" x2="100" y2="120"/>
+          <line class="c-line" x1="30" y1="70" x2="170" y2="70"/>
+          <line class="c-line" x1="100" y1="70" x2="65" y2="110"/>
+          <line class="c-line" x1="100" y1="70" x2="135" y2="110"/>
+          <circle class="c-star" cx="100" cy="20" r="5" fill="#ffd166" style="animation-delay:0s; filter:drop-shadow(0 0 8px #ffd166)"/>
+          <circle class="c-star" cx="100" cy="70" r="3" style="animation-delay:0.4s"/>
+          <circle class="c-star" cx="100" cy="120" r="2.5" style="animation-delay:0.8s"/>
+          <circle class="c-star" cx="30" cy="70" r="3" style="animation-delay:0.2s"/>
+          <circle class="c-star" cx="170" cy="70" r="3" style="animation-delay:0.6s"/>
+          <circle class="c-star" cx="65" cy="110" r="2.5" style="animation-delay:1s"/>
+          <circle class="c-star" cx="135" cy="110" r="2.5" style="animation-delay:0.5s"/>
+        </svg>
+        <div class="card-name">Cygnus</div>
+        <div class="card-latin">The Swan</div>
+        <div class="card-desc">Also called the Northern Cross. Deneb, its brightest star, is one of the most luminous stars visible to the naked eye.</div>
+      </div>
+
+      <!-- LEO -->
+      <div class="constellation-card">
+        <svg class="card-svg" viewBox="0 0 200 140">
+          <polyline class="c-line" points="40,80 70,50 100,35 120,45 110,70 70,80 40,80"/>
+          <line class="c-line" x1="110" y1="70" x2="150" y2="100"/>
+          <line class="c-line" x1="150" y1="100" x2="160" y2="80"/>
+          <circle class="c-star" cx="40" cy="80" r="5" fill="#ffd166" style="animation-delay:0s; filter:drop-shadow(0 0 8px #ffd166)"/>
+          <circle class="c-star" cx="70" cy="50" r="3" style="animation-delay:0.3s"/>
+          <circle class="c-star" cx="100" cy="35" r="3.5" style="animation-delay:0.6s"/>
+          <circle class="c-star" cx="120" cy="45" r="2.5" style="animation-delay:0.1s"/>
+          <circle class="c-star" cx="110" cy="70" r="3" style="animation-delay:0.7s"/>
+          <circle class="c-star" cx="70" cy="80" r="2.5" style="animation-delay:0.4s"/>
+          <circle class="c-star" cx="150" cy="100" r="4" fill="#a8dadc" style="animation-delay:0.5s; filter:drop-shadow(0 0 5px #a8dadc)"/>
+          <circle class="c-star" cx="160" cy="80" r="2.5" style="animation-delay:0.9s"/>
+        </svg>
+        <div class="card-name">Leo</div>
+        <div class="card-latin">The Lion</div>
+        <div class="card-desc">Regulus marks the lion's heart. In spring, Leo rides high in the sky and is the radiant point of the Leonid meteor shower.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STARS SECTION -->
+<section id="stars">
+  <div class="section-inner">
+    <div class="stars-content">
+      <div>
+        <span class="section-tag">Stars</span>
+        <h2>The Furnaces<br>of the Universe</h2>
+        <p class="lead">Stars are massive spheres of plasma, held together by gravity and powered by nuclear fusion. Their color reveals their temperature — blue-white the hottest, deep red the coolest.</p>
+        <div class="star-types">
+          <div class="star-type">
+            <div class="star-dot" style="--c:#9db4ff; background:#9db4ff;"></div>
+            <div class="star-type-info">
+              <div class="star-type-name">Class O — Blue Giants</div>
+              <div class="star-type-desc">Extremely rare, luminous, and short-lived. The universe's most massive and brilliant stars.</div>
+            </div>
+            <div class="star-temp">&gt; 30,000 K</div>
+          </div>
+          <div class="star-type">
+            <div class="star-dot" style="--c:#cad7ff; background:#cad7ff;"></div>
+            <div class="star-type-info">
+              <div class="star-type-name">Class A — White Stars</div>
+              <div class="star-type-desc">Sirius and Vega belong here. Bright and prominent, visible across vast distances.</div>
+            </div>
+            <div class="star-temp">7,500–10,000 K</div>
+          </div>
+          <div class="star-type">
+            <div class="star-dot" style="--c:#fff4cc; background:#fff4cc;"></div>
+            <div class="star-type-info">
+              <div class="star-type-name">Class G — Yellow Dwarfs</div>
+              <div class="star-type-desc">Our own Sun falls here. Stable, long-lived stars perfectly suited for sustaining life.</div>
+            </div>
+            <div class="star-temp">5,200–6,000 K</div>
+          </div>
+          <div class="star-type">
+            <div class="star-dot" style="--c:#ef476f; background:#ef476f;"></div>
+            <div class="star-type-info">
+              <div class="star-type-name">Class M — Red Giants</div>
+              <div class="star-type-desc">Betelgeuse and Antares — cool, enormous, nearing the end of their stellar lives.</div>
+            </div>
+            <div class="star-temp">&lt; 3,700 K</div>
+          </div>
+        </div>
+      </div>
+      <div class="sky-orb">
+        <div class="orb-glow"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">COSMOS</div>
+  <p>The universe is under no obligation to make sense to you.</p>
+</footer>
+
+<script>
+  // ── GENERATE STAR FIELD ──
+  const field = document.getElementById('starfield');
+  const W = window.innerWidth, H = window.innerHeight;
+  const count = Math.floor((W * H) / 3000);
+
+  for (let i = 0; i < count; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() < 0.85 ? Math.random() * 1.5 + 0.3 : Math.random() * 2.5 + 1.5;
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    const dur = Math.random() * 4 + 2;
+    const delay = -(Math.random() * 8);
+    const minOp = Math.random() * 0.3 + 0.05;
+
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${x}%; top:${y}%;
+      --d:${dur}s; --delay:${delay}s; --min-op:${minOp};
+      opacity:${minOp};
+    `;
+    // Occasional colored stars
+    const r = Math.random();
+    if (r < 0.05) s.style.background = '#9db4ff';
+    else if (r < 0.09) s.style.background = '#ffd59e';
+    else if (r < 0.11) s.style.background = '#ffb4b4';
+
+    field.appendChild(s);
+  }
+
+  // ── GENERATE METEORS ──
+  const meteorCount = 8;
+  for (let i = 0; i < meteorCount; i++) {
+    const m = document.createElement('div');
+    m.className = 'meteor';
+    const top = Math.random() * 60;
+    const right = Math.random() * 80;
+    const len = Math.random() * 100 + 60;
+    const dur = Math.random() * 1.5 + 0.8;
+    const delay = -(Math.random() * 10);
+
+    m.style.cssText = `
+      top:${top}%; right:${right}%;
+      --len:${len}px; --dur:${dur}s; --delay:${delay}s;
+    `;
+    field.appendChild(m);
+  }
+</script>
+</body>
+</html>

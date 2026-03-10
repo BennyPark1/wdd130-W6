@@ -1,0 +1,96 @@
+
+@font-face {
+    font-family: 'librebaskerville';
+    src: url('../fonts/LibreBaskerville-Regular.ttf') format('truetype');   
+}
+    
+body {
+    background-image: url(../images/background.png);
+}
+
+#wrapper {
+    border: 3px solid black;
+    width: 1024px;
+    margin: 40px auto;
+    border-radius: 20px;
+    background: #ffffffcc;
+}
+h1 {
+    font-family: librebaskerville, serif;
+    font-size: 3em;
+    text-align: center;
+}
+main section {
+    width: 360px;
+    height: 360px;
+    padding: 8px;
+    border: 12px solid black;
+    
+}
+
+section {
+    width: 360px;
+    height: 369px;
+    border: 12px solid black;
+    padding: 8px;
+    /* idsplay to inline*/
+    /*display: inline-block;
+    vertical-align: top;
+    margin: 20px 10px 20px 10px; */
+    /* how to fix this one thing */
+    float: left 
+
+
+}
+
+
+
+nav {
+    background: white;
+    height: 50px;
+
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-evenly;
+    list-style-type: name;
+    margin: 0;
+}
+
+nav li {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+nav a {
+    color: black;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: non;
+    padding: 10px 36px 5px;
+}
+
+nav a:hover {
+    color: blue;
+    text-shadow: 2.5px 2.5px black;
+    background: yellow;
+}
+
+#contact {
+    width: 200px;
+    min-height: 200px;
+    border: solid black 3px;
+    padding: 12px;
+    background: green;
+
+    position: absolute ;
+    bottom: 0px;
+    right: 20px;
+}
+
+footer {
+    clear: both;
+    
+}

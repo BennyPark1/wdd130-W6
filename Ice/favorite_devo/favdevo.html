@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Favorite Devotionals</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-image">
+        <h1>My Favorite<br>Devotionals</h1>
+      </div>
+    </header>
+    <main>
+      <div class="content-box">
+        <div class="Table">
+          <table class="blueTable">
+            <thead>
+            <tr>
+            <th>Speaker</th>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>Jeffrey R. Holland</td><td>Because of your faith</td><td>SaltLakeCity</td><td>2010</td></tr>
+            <tr>
+            <td>Jeffrey R. Holland</td><td>The first great commandment</td><td>SaltLakeCity</td><td>2012</tr>
+            <tr>
+            <td>Russel M. Nelson</td><td>Think Celestial<td>SaltLakeCity</td><td>2023</td></tr>
+            <tr>
+            <td>Thomas S. Monson</td><td>Charity never faileth</td><td>SaltLakeCity</td><td>2015</td></tr>
+            </tbody>
+            </tr>
+            </table>
+        </div>
+        <div class="input-box">
+          <form action="/submit" method="POST">
+            <label for="speaker">Speaker:</label>
+            <input type="text" id="speaker" name="speaker" placeholder="Enter speaker name"><br><br>
+
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" placeholder="Enter title"><br><br>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" placeholder="Enter location"><br><br>
+
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" placeholder="Enter year" min="1900" max="2100"><br><br>
+
+            <button type="submit">Submit</button>
+</form>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

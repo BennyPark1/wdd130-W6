@@ -1,0 +1,40 @@
+ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    list-style: none;
+    background-color: #D88CA3;
+    margin: 50px;
+    text-align: center;
+    border: 10px solid #D88CA3;
+    border-radius: 50px;
+    
+}
+
+
+
+body {
+    background-color: #FFF4E6;
+}
+
+#wrapper {
+    background-color: #FAD0D8;
+    border-radius: 50px;
+}
+
+main {
+    text-align: center;
+
+}
+
+img {
+    border-radius: 50px;
+    width: 800px;
+    height: 800px;
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 50px;
+}
+
+
