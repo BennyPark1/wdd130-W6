@@ -1,0 +1,255 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap");
+
+
+:root {
+    --star-white: #e8eeff;
+    --dim: #6b72a8;
+    --border: rgba(255, 255, 255, 0.06);
+    --card-bg: rgba(10, 22, 40, 0.3);
+    --card-bg-hover: rgba(10, 22, 40, 0.6);
+    --accent: rgba(255, 209, 102, 0.3);
+    --grid-blue: #4a4e8e;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("../newimages/background.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#maingrid {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+#container-page {
+    width: 90%;
+    max-width: 1100px;
+    background-color: #0b0c1e;
+    border-radius: 80px;
+    padding-bottom: 60px;
+    background-image:
+        radial-gradient(1px 1px at 5% 8%, white 100%, transparent),
+        radial-gradient(1.5px 1.5px at 12% 35%, #ccd6ff 100%, transparent),
+        radial-gradient(1px 1px at 18% 60%, white 100%, transparent),
+        radial-gradient(2px 2px at 22% 15%, #fff5cc 100%, transparent),
+        radial-gradient(1px 1px at 28% 80%, white 100%, transparent),
+        radial-gradient(1.5px 1.5px at 33% 45%, #ccd6ff 100%, transparent),
+        radial-gradient(1px 1px at 38% 22%, white 100%, transparent),
+        radial-gradient(2px 2px at 42% 70%, #ffdddd 100%, transparent),
+        radial-gradient(1px 1px at 47% 5%, white 100%, transparent),
+        radial-gradient(1.5px 1.5px at 53% 55%, #fff5cc 100%, transparent),
+        radial-gradient(1px 1px at 58% 38%, white 100%, transparent),
+        radial-gradient(2px 2px at 63% 90%, #ccd6ff 100%, transparent),
+        radial-gradient(1px 1px at 67% 25%, white 100%, transparent),
+        radial-gradient(1.5px 1.5px at 72% 65%, white 100%, transparent),
+        radial-gradient(1px 1px at 76% 12%, #ffdddd 100%, transparent),
+        radial-gradient(2px 2px at 80% 48%, #fff5cc 100%, transparent),
+        radial-gradient(1px 1px at 84% 78%, white 100%, transparent),
+        radial-gradient(1.5px 1.5px at 88% 30%, #ccd6ff 100%, transparent),
+        radial-gradient(1px 1px at 92% 55%, white 100%, transparent),
+        radial-gradient(2px 2px at 96% 18%, white 100%, transparent),
+        radial-gradient(1px 1px at 15% 92%, #fff5cc 100%, transparent),
+        radial-gradient(1.5px 1.5px at 44% 88%, white 100%, transparent),
+        radial-gradient(1px 1px at 65% 95%, #ccd6ff 100%, transparent),
+        radial-gradient(2px 2px at 8% 50%, white 100%, transparent),
+        radial-gradient(1px 1px at 55% 72%, #ffdddd 100%, transparent),
+        radial-gradient(1.5px 1.5px at 35% 10%, white 100%, transparent),
+        radial-gradient(1px 1px at 78% 85%, #fff5cc 100%, transparent),
+        radial-gradient(2px 2px at 25% 55%, white 100%, transparent),
+        radial-gradient(1px 1px at 90% 72%, white 100%, transparent),
+        radial-gradient(1.5px 1.5px at 50% 95%, #ccd6ff 100%, transparent);
+}
+
+/* ── Header ────────────────────────────────────── */
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.logo {
+    width: 180px;
+    height: 180px;
+    animation: eclipse-glow 12s infinite alternate ease-in-out;
+}
+
+@keyframes eclipse-glow {
+    0% {
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2))
+                drop-shadow(0 0 20px rgba(100, 100, 255, 0.1));
+    }
+    25% {
+        filter: drop-shadow(0 0 20px rgba(147, 51, 234, 0.8))
+                drop-shadow(0 0 40px rgba(79, 70, 229, 0.5))
+                drop-shadow(0 0 60px rgba(59, 130, 246, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.8))
+                drop-shadow(0 0 40px rgba(245, 158, 11, 0.5))
+                drop-shadow(0 0 60px rgba(239, 68, 68, 0.3));
+    }
+    75% {
+        filter: drop-shadow(0 0 20px rgba(52, 211, 153, 0.8))
+                drop-shadow(0 0 40px rgba(56, 189, 248, 0.5))
+                drop-shadow(0 0 60px rgba(99, 102, 241, 0.3));
+    }
+    100% {
+        filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8))
+                drop-shadow(0 0 50px rgba(196, 181, 253, 0.5))
+                drop-shadow(0 0 75px rgba(147, 51, 234, 0.3));
+    }
+}
+
+
+#secondheader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#fs {
+    font-family: "Cinzel Decorative", cursive;
+    color: white;
+    text-align: center;
+}
+
+#secondheader h1,
+#secondheader p {
+    margin: 4px 0;
+}
+
+
+#mainpage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 40px;
+}
+
+
+.imagegrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+    margin: 30px 0 50px;
+}
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.card a {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+}
+
+
+.thumb {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border: 2px solid var(--grid-blue);
+    border-radius: 8px;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.card a:hover .thumb {
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.95));
+    opacity: 0.85;
+}
+
+.card-desc {
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--card-bg);
+    transition: border-color 0.3s, background 0.3s;
+}
+
+.card-desc:hover {
+    border-color: var(--accent);
+    background: var(--card-bg-hover);
+}
+
+.star-type-name {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.85rem;
+    color: var(--star-white);
+    margin-bottom: 0.2rem;
+}
+
+.star-type-desc {
+    font-size: 0.75rem;
+    color: var(--dim);
+    line-height: 1.5;
+}
+
+
+#footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+    color: var(--dim);
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.85rem;
+}
+
+.social {
+    display: flex;
+    gap: 16px;
+}
+
+.social a img {
+    width: 28px;
+    height: 28px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.social a:hover img {
+    opacity: 1;
+}
+
+
+@media (max-width: 700px) {
+    .imagegrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #container-page {
+        border-radius: 30px;
+    }
+
+    #mainpage {
+        padding: 0 20px;
+    }
+
+    #footer {
+        flex-direction: column;
+        gap: 12px;
+        padding: 20px;
+        text-align: center;
+    }
+}
